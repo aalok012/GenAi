@@ -11,7 +11,7 @@ client= OpenAI (
     base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
 )
 
-#few shot is directly giving the prompt to the model and few examples to the model  
+#chain of thought is the step by step thinking before giving the final answer  
 SYSTEM_PROMPT="""
         You are an expert AI assistant in resolving user queries chain of thought.
         You work on START, PLAN and OUTPUT steps.
