@@ -77,7 +77,7 @@ message_history.append({"role":"user","content":user_query})
 
 while True:
     response = client.chat.completions.create(
-        model="gemini-2.5-flash",
+        model="gpt-4o",
         response_format= {"type": "json_object"},
         messages=message_history
     )
@@ -92,13 +92,13 @@ while True:
         continue
     if parsed_result.get("step") == "TOOL":
         tool_to_call = parsed_result.get("tool")
-        tool_input= parsed_result.get("input")
+        tool_input = parsed_result.get("input")
         print(f" 🔨: {tool_to_call}({tool_input})")
         
         tool_response = available_tools[tool_to_call](tool_input)
-        message_history.append ({ "role": "developer", "content": json.dumps(
-        { "step: "OBSERVE", "tool": tool_to_call , "input": tool_input , "output": tool_response
-        } ) })
+        print(f"🔨: {tool_to_call}({tool_input}) = {tool_response}")
+        message_history.append ({ "role": "developer", "content": json.dumps( { "step" : "OBSERVE", "tool": tool_to_call ,     "input": tool_input , "output": tool_response } ) })
+        continue
         
     if parsed_result.get("step") == "PLAN":
         print("💭", parsed_result.get("content"))
